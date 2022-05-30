@@ -1,25 +1,24 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-import { Course } from '../model/course';
+import { Game } from '../model/game';
+import { delay, first, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CoursesService {
 
+  private readonly API = '/assets/courses.json';
+
   constructor(private httpClient: HttpClient) { }
 
-  lista(): Course[]{
-    return[
-    {_id: 1, nome:'Top Gear', distri:'Kemko', ano:'1992', plataforma: 'Super Nintendo'},
-    {_id: 2, nome:'Super Mario World', distri: 'Nintendo', ano:'1990', plataforma: 'Super Nintendo'},
-    {_id: 3, nome:'God of War', distri: 'Santa Monica Studio', ano:'2005', plataforma: 'MultiPlataforma'},
-    {_id: 4, nome:'A Plague Tale: Innocence', distri: 'Focus Home Interactive', ano:'2019', plataforma: 'MultiPlataforma'},
-    {_id: 5, nome:'Jackie Chan Stuntmaster', distri: 'Radical Entertainment', ano:'2000', plataforma: 'PlayStation'},
-    {_id: 6, nome:'Red Dead Redemption 2', distri: 'Rockstar Games', ano:'2018', plataforma: 'MultiPlataforma'},
-    {_id: 7, nome:'Doom Troopers II', distri: 'Adrenalin Entertainment', ano:'1995', plataforma: 'Super Nintendo'},
-    {_id: 8, nome:'Metal Gear Solid', distri: 'Konami', ano:'1998', plataforma: 'PlayStation'},
-    ];
+  lista(){
+    return this.httpClient.get<Game[]>(this.API)
+    .pipe(
+      first(),
+      delay(2000),
+      tap(courses => console.log(courses))
+    );
   }
 }

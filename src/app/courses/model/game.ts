@@ -1,4 +1,4 @@
-export interface Course {
+export interface Game {
   _id: number;
   nome: string;
   distri: string;

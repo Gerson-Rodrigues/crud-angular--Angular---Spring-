@@ -1,3 +1,12 @@
 table {
   width: 100%;
 }
+
+.loading-sppiner{
+  padding: 25px;
+  background: rgba($color: #252424, $alpha: 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+}
